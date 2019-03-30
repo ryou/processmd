@@ -166,19 +166,7 @@ function processYamlAndMarkdown (file, options, cb) {
 
     if (options.preview > 0 && jsonData.bodyContent) {
       const preview = removeMd(jsonData.bodyContent).split('\r').join('') // fix Windows eol.
-      let splitPoint = 0
-      let i = splitPoint
-      while (i < options.preview) {
-        i++
-        if (preview[i] === options.previewDelimiter) {
-          splitPoint = i
-        }
-        if (preview[i] === undefined) {
-          splitPoint = i
-          break
-        }
-      }
-      jsonData.preview = preview.substring(0, splitPoint).trim()
+      jsonData.preview = preview.substring(0, options.preview).trim()
     }
     if (options.includeTitle && jsonData.bodyContent) {
       jsonData.title = jsonData.title || jsonData.bodyHtml.match(/>(.*?)<\//)[1]
